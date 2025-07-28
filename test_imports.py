@@ -1,70 +1,60 @@
-#!/usr/bin/env python3
-"""
-Script para testar as importações das bibliotecas necessárias
-"""
+import streamlit as st
+import importlib
+import platform
 
-print("Testando importações...")
+def verificar_modulo(nome_modulo, nome_pip=None):
+    try:
+        modulo = importlib.import_module(nome_modulo)
+        versao = getattr(modulo, '__version__', 'instalado')
+        return True, versao, ""
+    except ImportError as e:
+        comando = f"pip install {nome_pip or nome_modulo}"
+        return False, None, comando
 
-try:
-    import streamlit as st
-    print("✓ Streamlit importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar Streamlit: {e}")
+obrigatorias = {
+    "streamlit": "streamlit",
+    "cv2": "opencv-python",
+    "pandas": "pandas",
+    "PIL": "pillow",
+    "qrcode": "qrcode",
+    "pyzbar": "pyzbar",
+    "sqlite3": None,
+    "numpy": "numpy"
+}
 
-try:
-    import cv2
-    print("✓ OpenCV importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar OpenCV: {e}")
+opcionais = {
+    "easyocr": "easyocr",
+    "ultralytics": "ultralytics",
+    "torch": "torch"
+}
 
-try:
-    import pandas as pd
-    print("✓ Pandas importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar Pandas: {e}")
+st.title("🔍 Verificação de Ambiente para Visão Computacional")
 
-try:
-    from PIL import Image
-    print("✓ Pillow importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar Pillow: {e}")
+st.header("📦 Dependências Obrigatórias")
+for modulo, pip_nome in obrigatorias.items():
+    ok, versao, comando = verificar_modulo(modulo, pip_nome)
+    if ok:
+        st.success(f"✓ {modulo} — versão: {versao}")
+    else:
+        st.error(f"✗ {modulo} não encontrado.")
+        st.code(comando, language='bash')
 
-try:
-    import qrcode
-    print("✓ QRCode importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar QRCode: {e}")
-
-try:
-    import pyzbar
-    print("✓ PyZBar importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar PyZBar: {e}")
-
-try:
-    import sqlite3
-    print("✓ SQLite3 importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar SQLite3: {e}")
-
-try:
-    import numpy as np
-    print("✓ NumPy importado com sucesso")
-except ImportError as e:
-    print(f"✗ Erro ao importar NumPy: {e}")
-
-# Testando importações que podem não estar disponíveis ainda
-try:
-    import easyocr
-    print("✓ EasyOCR importado com sucesso")
-except ImportError as e:
-    print(f"⚠ EasyOCR não disponível ainda: {e}")
+st.header("🔧 Dependências Opcionais")
+for modulo, pip_nome in opcionais.items():
+    ok, versao, comando = verificar_modulo(modulo, pip_nome)
+    if ok:
+        st.success(f"✓ {modulo} — versão: {versao}")
+    else:
+        st.warning(f"⚠ {modulo} não encontrado.")
+        st.code(comando, language='bash')
 
 try:
-    from ultralytics import YOLO
-    print("✓ Ultralytics YOLO importado com sucesso")
-except ImportError as e:
-    print(f"⚠ Ultralytics não disponível ainda: {e}")
+    import torch
+    st.header("⚙️ Verificação de Hardware")
+    st.success("GPU disponível ✅" if torch.cuda.is_available() else "⚠ Apenas CPU disponível")
+except:
+    pass
 
-print("\nTeste de importações concluído!")
-
+st.header("🖥️ Informações do Sistema")
+st.text(f"Sistema: {platform.system()} {platform.release()}")
+st.text(f"Python: {platform.python_version()}")
