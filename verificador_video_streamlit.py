@@ -1,4 +1,3 @@
-
 import streamlit as st
 import cv2
 import tempfile
@@ -33,12 +32,8 @@ if video_file:
         "Conectores instalados": False
     }
 
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.write("📸 Frames capturados:")
-    with col2:
-        st.write("📋 Itens detectados:")
+    # Armazena imagens e resultados antes de exibir
+    frames_info = []
 
     for i in range(5):
         cap.set(cv2.CAP_PROP_POS_FRAMES, i * interval)
@@ -46,7 +41,7 @@ if video_file:
         if not ret:
             continue
 
-        # Simulação de detecção (neste exemplo, randomizada)
+        # Simulação de detecção (exemplo simples)
         detected_items = []
         if i % 2 == 0:
             checklist["Etiqueta visível"] = True
@@ -64,12 +59,24 @@ if video_file:
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         pil_image = Image.fromarray(frame_rgb)
 
-        with col1:
-            st.image(pil_image, caption=f"Frame {i+1}", width=250)
-        with col2:
-            st.success("✔️ " + ", ".join(detected_items) if detected_items else "❌ Nada detectado")
+        frames_info.append({
+            "image": pil_image,
+            "caption": f"Frame {i+1}",
+            "detected": detected_items
+        })
 
     cap.release()
+
+    # Agora exibimos fora do loop principal
+    for item in frames_info:
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.image(item["image"], caption=item["caption"], use_column_width=True)
+        with col2:
+            if item["detected"]:
+                st.success("✔️ " + ", ".join(item["detected"]))
+            else:
+                st.error("❌ Nenhum item detectado")
 
     st.markdown("---")
     st.subheader("✅ Resultado Final do Checklist")
@@ -82,3 +89,5 @@ if video_file:
         st.success("✅ Equipamento verificado com sucesso. OK para lacre.")
     else:
         st.error("⚠️ Falta de itens. Verifique antes de lacrar.")
+
+
