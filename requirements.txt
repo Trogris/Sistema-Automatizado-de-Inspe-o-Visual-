@@ -1,0 +1,29 @@
+# Sistema de Verificação Visual Automatizada
+# Dependências Python necessárias
+
+# Interface Web
+streamlit>=1.28.0
+
+# Processamento de Imagens
+opencv-python>=4.8.0
+pillow>=10.0.0
+
+# Inteligência Artificial
+ultralytics>=8.0.0
+
+# OCR (Reconhecimento Óptico de Caracteres)
+easyocr>=1.7.0
+pyzbar>=0.1.9
+
+# Manipulação de Dados
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Utilitários
+logging
+datetime
+json
+os
+sys
+sqlite3
+

@@ -1,0 +1,60 @@
+# Sistema de Verificação Visual - .gitignore
+
+# Dados locais (não versionar)
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+.venv/
+
+# Modelos baixados automaticamente
+*.pt
+models/
+
+# Arquivos temporários
+*.tmp
+*.temp
+temp/
+
+# Imagens processadas (manter apenas exemplos)
+data/images/processed/
+data/images/thumbnails/
+
+# Relatórios gerados
+data/reports/*.csv
+
+# Configurações locais
+config.json
+.env
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit
+.streamlit/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+

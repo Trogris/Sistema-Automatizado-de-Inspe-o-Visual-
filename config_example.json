@@ -1,0 +1,103 @@
+{
+  "system": {
+    "name": "Sistema de Verificação Visual Automatizada",
+    "version": "1.0.0",
+    "author": "Manus AI",
+    "debug": false
+  },
+  "detection": {
+    "confidence_threshold": 0.5,
+    "model_path": "yolov8n.pt",
+    "use_pretrained": true,
+    "classes_to_detect": [
+      "estrutura_metalica",
+      "led_status", 
+      "etiquetas",
+      "conectores",
+      "modulos"
+    ]
+  },
+  "ocr": {
+    "languages": ["pt", "en"],
+    "confidence_threshold": 0.3,
+    "preprocessing": {
+      "resize": true,
+      "denoise": true,
+      "contrast_enhance": true
+    },
+    "patterns": {
+      "ip_address": "\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b",
+      "equipment_code": "DNITMS-[A-Z0-9-]+",
+      "road_info": "BR-[0-9]+ km [0-9+]+"
+    }
+  },
+  "camera": {
+    "default_device": 0,
+    "resolution": {
+      "width": 1280,
+      "height": 720
+    },
+    "fps": 30,
+    "auto_exposure": true
+  },
+  "storage": {
+    "database_path": "../data/inspection_database.db",
+    "images_path": "../data/images",
+    "reports_path": "../data/reports",
+    "cleanup_days": 30,
+    "auto_backup": true
+  },
+  "interface": {
+    "theme": "light",
+    "language": "pt-BR",
+    "auto_save": true,
+    "show_confidence": true,
+    "page_title": "Sistema de Verificação Visual",
+    "page_icon": "🔍"
+  },
+  "checklist": {
+    "required_items": {
+      "estrutura_metalica": {
+        "weight": 0.3,
+        "description": "Gabinete e fixações metálicas"
+      },
+      "led_status": {
+        "weight": 0.2,
+        "description": "Indicadores luminosos de status"
+      },
+      "etiquetas": {
+        "weight": 0.3,
+        "description": "Etiquetas de identificação"
+      },
+      "conectores": {
+        "weight": 0.1,
+        "description": "Cabos e conectores"
+      },
+      "modulos": {
+        "weight": 0.1,
+        "description": "Módulos específicos do equipamento"
+      }
+    },
+    "approval_threshold": 0.8
+  },
+  "notifications": {
+    "enable_email": false,
+    "email_settings": {
+      "smtp_server": "",
+      "smtp_port": 587,
+      "username": "",
+      "password": "",
+      "recipients": []
+    },
+    "enable_webhooks": false,
+    "webhook_url": ""
+  },
+  "logging": {
+    "level": "INFO",
+    "file_path": "../logs/system.log",
+    "max_file_size": "10MB",
+    "backup_count": 5,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  }
+}
+
