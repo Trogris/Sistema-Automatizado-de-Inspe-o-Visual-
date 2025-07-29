@@ -1,0 +1,120 @@
+# Sistema de Verificação Visual Automatizada
+# .gitignore - Arquivos e diretórios a serem ignorados pelo Git
+
+# Dados locais (não versionar)
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Ambiente virtual Python
+venv/
+env/
+.env
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Streamlit
+.streamlit/
+
+# Modelos baixados automaticamente
+*.pt
+*.pth
+models/
+weights/
+
+# Arquivos temporários
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Arquivos de vídeo de teste (muito grandes)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+test_videos/
+
+# Imagens processadas (geradas automaticamente)
+processed_images/
+annotated_frames/
+output/
+
+# Configurações locais
+config_local.json
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+backups/
+
+# Arquivos de documentação temporários
+*.docx
+*.pdf
+*.xlsx
+
+# Certificados e chaves
+*.pem
+*.key
+*.crt
+*.p12
+
+# Arquivos de deploy
+docker-compose.override.yml
+.dockerignore
+
+# Arquivos específicos do projeto
+# (descomente se necessário)
+# config.json
+# install.sh
+
